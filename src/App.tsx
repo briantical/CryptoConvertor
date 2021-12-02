@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import currency from 'currency.js';
+import { isNaN } from 'lodash';
 
 import {
 	ICurrency,
@@ -7,7 +8,6 @@ import {
 	getFiatCurrencies,
 	getCryptoCurrencies,
 } from './utils';
-import { isNaN } from 'lodash';
 
 const initCurrency: ICurrency = {
 	id: 0,
