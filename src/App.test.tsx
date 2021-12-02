@@ -6,8 +6,8 @@ describe('Crypto Convertor', () => {
 	const component = shallow(<App />);
 	const subComponent = shallow(
 		<ResultDisplay
-			amount={0}
-			curr={{ id: 0, name: 'Bitcoin', symbol: 'BTC' }}
+			amount={210}
+			curr={{ id: 100, name: 'Bitcoin', symbol: 'BTC' }}
 		/>
 	);
 
