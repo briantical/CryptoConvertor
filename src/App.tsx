@@ -15,7 +15,7 @@ const initCurrency: ICurrency = {
 	symbol: '',
 };
 
-const ResultDisplay: React.FC<{
+export const ResultDisplay: React.FC<{
 	amount: number;
 	curr: ICurrency;
 	className?: string;
@@ -84,7 +84,7 @@ const App: React.FC = () => {
 
 				setLoading(false);
 			} catch (error: any) {
-				alert(error.message);
+				window.alert(error.message);
 				setLoading(false);
 			}
 		};
@@ -98,7 +98,7 @@ const App: React.FC = () => {
 				const conversion = await convertCurrency(from, to, amount);
 				setConverted(conversion || 0);
 			} catch (error: any) {
-				alert(error.message);
+				window.alert(error.message);
 			}
 		};
 
@@ -111,7 +111,7 @@ const App: React.FC = () => {
 		toCurrencies && toCurrencies.find(({ symbol }) => symbol === to)!;
 
 	return (
-		<div className="container h-100 w-100">
+		<div className="container h-100 w-100 convertor">
 			<div className="d-flex flex-column bg-light p-3">
 				<div className="row justify-content-between align-items-center">
 					<div className="col-5">

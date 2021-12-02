@@ -1,9 +1,35 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { shallow } from 'enzyme';
+import App, { ResultDisplay } from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Crypto Convertor', () => {
+	const component = shallow(<App />);
+	const subComponent = shallow(
+		<ResultDisplay
+			amount={0}
+			curr={{ id: 0, name: 'Bitcoin', symbol: 'BTC' }}
+		/>
+	);
+
+	it('should render without crashing', () => {
+		expect(component.exists()).toBe(true);
+		expect(component.hasClass('convertor')).toBe(true);
+	});
+
+	it('Should render the ResultDisplay component', () => {
+		expect(subComponent.exists()).toBe(true);
+
+		const nodes = subComponent.find('span');
+		expect(nodes.hostNodes()).toHaveLength(2);
+	});
+
+	it('Should have amount input', () => {
+		const amountInput = component.find('input[name="amount"]');
+		expect(amountInput.hostNodes()).toHaveLength(1);
+	});
+
+	it('Should have currency selects', () => {
+		const selectNodes = component.find('select');
+		expect(selectNodes.hostNodes()).toHaveLength(2);
+	});
 });
