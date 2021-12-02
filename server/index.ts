@@ -23,9 +23,7 @@ app.use(express.json());
 
 app.use('/cryptocurrencies', async (req: Request, res: Response) => {
 	try {
-		const response = await instance.get(
-			`https://pro-api.coinmarketcap.com/v1/cryptocurrency/map`
-		);
+		const response = await instance.get(`cryptocurrency/map`);
 
 		const {
 			data: { data: currencies },
@@ -38,9 +36,7 @@ app.use('/cryptocurrencies', async (req: Request, res: Response) => {
 
 app.use('/fiats', async (req: Request, res: Response) => {
 	try {
-		const response = await instance.get(
-			`https://pro-api.coinmarketcap.com/v1/fiat/map`
-		);
+		const response = await instance.get(`fiat/map`);
 
 		const {
 			data: { data: currencies },
@@ -58,7 +54,7 @@ app.use('/convert/:amount/:from/:to', async (req: Request, res: Response) => {
 
 	try {
 		const response = await instance.get(
-			`https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=${amount}&symbol=${from}&convert=${to}`
+			`tools/price-conversion?amount=${amount}&symbol=${from}&convert=${to}`
 		);
 
 		const {
