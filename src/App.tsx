@@ -53,7 +53,7 @@ const App: React.FC = () => {
 	const [converted, setConverted] = useState<number>(0);
 
 	const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAmount(parseInt(e.target.value) || 0);
+		setAmount(parseInt(e.target.value, 10) || 0);
 	};
 
 	const handleToChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
