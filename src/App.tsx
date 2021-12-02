@@ -85,7 +85,7 @@ const App: React.FC = () => {
 
 				setLoading(false);
 			} catch (error: any) {
-				window.alert(error.message);
+				window.alert(`${process.env.REACT_APP_SERVER_URL} ${error.message}`);
 				setLoading(false);
 			}
 		};
@@ -99,7 +99,7 @@ const App: React.FC = () => {
 				const conversion = await convertCurrency(from, to, amount);
 				setConverted(conversion || 0);
 			} catch (error: any) {
-				window.alert(error.message);
+				window.alert(`${process.env.REACT_APP_SERVER_URL} ${error.message}`);
 			}
 		};
 
