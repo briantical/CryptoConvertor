@@ -7,7 +7,7 @@ export interface ICurrency {
 	symbol: string;
 }
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001';
 
 export const getCryptoCurrencies = async (): Promise<ICurrency[]> => {
 	try {
