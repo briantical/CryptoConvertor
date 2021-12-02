@@ -26,9 +26,8 @@
 		"web-vitals": "^1.1.2"
 	},
 	"scripts": {
-		"build:server": "rimraf dist && tsc",
-		"preserver": "npm run build:server",
-		"server": "concurrently \"tsc --watch\" \"nodemon -q dist/server.js\"",
+		"preserver": "tsc --project server/tsconfig.json",
+		"server": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
 		"front": "react-scripts start",
 		"start": "concurrently \"npm run server\" \"npm run front\" ",
 		"build": "react-scripts build",

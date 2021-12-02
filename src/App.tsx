@@ -7,6 +7,7 @@ import {
 	getFiatCurrencies,
 	getCryptoCurrencies,
 } from './utils';
+import { isNaN } from 'lodash';
 
 const initCurrency: ICurrency = {
 	id: 0,
@@ -53,7 +54,7 @@ const App: React.FC = () => {
 	const [converted, setConverted] = useState<number>(0);
 
 	const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAmount(parseInt(e.target.value, 10) || 0);
+		setAmount(parseInt(e.target.value, 10));
 	};
 
 	const handleToChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -102,7 +103,9 @@ const App: React.FC = () => {
 			}
 		};
 
-		handleCurrencyConversion();
+		if (!isNaN(amount)) {
+			handleCurrencyConversion();
+		}
 	}, [from, to, amount]);
 
 	const fromCurrency =
@@ -187,7 +190,10 @@ const App: React.FC = () => {
 				</div>
 
 				<div className="d-flex justify-content-center align-items-center">
-					<ResultDisplay amount={amount} curr={fromCurrency} />
+					<ResultDisplay
+						amount={isNaN(amount) ? 0 : amount}
+						curr={fromCurrency}
+					/>
 					{` = `}
 					<ResultDisplay
 						amount={converted}
