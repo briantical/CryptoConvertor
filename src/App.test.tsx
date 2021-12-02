@@ -25,6 +25,8 @@ describe('Crypto Convertor', () => {
 
 	it('Should have amount input', () => {
 		const amountInput = component.find('input[name="amount"]');
+		expect(amountInput.prop('value')).toEqual(0);
+		expect(amountInput.prop('disabled')).toBe(true);
 		expect(amountInput.hostNodes()).toHaveLength(1);
 	});
 
