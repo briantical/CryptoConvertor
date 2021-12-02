@@ -35,15 +35,21 @@ const ResultDisplay: React.FC<{
 };
 
 const App: React.FC = () => {
+	// Loading state when making API calls
 	const [loading, setLoading] = useState(true);
-
+	// current currency to convert to
 	const [to, setTo] = useState<string>('USD');
+	// current currency to convert from
 	const [from, setFrom] = useState<string>('BTC');
 
+	// List of currencies to convert from ie cryptocurrencies initially
 	const [fromCurrencies, setFromCurrencies] = useState<ICurrency[]>([]);
+	// List of currencies to convert to ie fiat currencies initially
 	const [toCurrencies, setToCurrencies] = useState<ICurrency[]>([]);
 
+	// Amount to be converted
 	const [amount, setAmount] = useState<number>(0);
+	// The converted amount
 	const [converted, setConverted] = useState<number>(0);
 
 	const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,8 +83,8 @@ const App: React.FC = () => {
 				setToCurrencies(fiats);
 
 				setLoading(false);
-			} catch (error) {
-				console.log(error);
+			} catch (error: any) {
+				alert(error.message);
 				setLoading(false);
 			}
 		};
@@ -92,15 +98,17 @@ const App: React.FC = () => {
 				const conversion = await convertCurrency(from, to, amount);
 				setConverted(conversion || 0);
 			} catch (error: any) {
-				console.log(error.message);
+				alert(error.message);
 			}
 		};
 
 		handleCurrencyConversion();
 	}, [from, to, amount]);
 
-	const fromCurrency = fromCurrencies.find(({ symbol }) => symbol === from)!;
-	const toCurrency = toCurrencies.find(({ symbol }) => symbol === to)!;
+	const fromCurrency =
+		fromCurrencies && fromCurrencies.find(({ symbol }) => symbol === from)!;
+	const toCurrency =
+		toCurrencies && toCurrencies.find(({ symbol }) => symbol === to)!;
 
 	return (
 		<div className="container h-100 w-100">
@@ -132,14 +140,15 @@ const App: React.FC = () => {
 							onChange={handleFromChange}
 						>
 							<option value="">Select currency</option>
-							{fromCurrencies.map((currency) => {
-								const { id, name, symbol, sign } = currency;
-								return (
-									<option key={id} value={symbol}>
-										{`${name} ${sign ? `"${sign}"` : ''} (${symbol})`}
-									</option>
-								);
-							})}
+							{fromCurrencies &&
+								fromCurrencies.map((currency) => {
+									const { id, name, symbol, sign } = currency;
+									return (
+										<option key={id} value={symbol}>
+											{`${name} ${sign ? `"${sign}"` : ''} (${symbol})`}
+										</option>
+									);
+								})}
 						</select>
 					</div>
 
@@ -164,14 +173,15 @@ const App: React.FC = () => {
 							onChange={handleToChange}
 						>
 							<option value="">Select currency</option>
-							{toCurrencies.map((currency) => {
-								const { id, name, symbol, sign } = currency;
-								return (
-									<option key={id} value={symbol}>
-										{`${name} ${sign ? `"${sign}"` : ''} (${symbol})`}
-									</option>
-								);
-							})}
+							{toCurrencies &&
+								toCurrencies.map((currency) => {
+									const { id, name, symbol, sign } = currency;
+									return (
+										<option key={id} value={symbol}>
+											{`${name} ${sign ? `"${sign}"` : ''} (${symbol})`}
+										</option>
+									);
+								})}
 						</select>
 					</div>
 				</div>
