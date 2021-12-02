@@ -15,17 +15,22 @@ const initCurrency: ICurrency = {
 	symbol: '',
 };
 
-const ResultDisplay: React.FC<{ amount: number; curr: ICurrency }> = ({
-	amount,
-	curr,
-}) => {
+const ResultDisplay: React.FC<{
+	amount: number;
+	curr: ICurrency;
+	className?: string;
+}> = ({ amount, curr, className }) => {
 	const { name, symbol, sign } = curr || initCurrency;
 
 	return (
-		<span>
-			{` ${currency(amount, { separator: ',', symbol: '' }).format()}`}
-			{`${name} ${sign ? `"${sign}"` : ''} ${symbol}`}
-		</span>
+		<>
+			<span className={className}>
+				{` ${currency(amount, { separator: ',', symbol: '' }).format()}`}
+			</span>
+			<span>
+				{name ? ` ${name} ${sign ? `"${sign}"` : ''} (${symbol}) ` : ''}
+			</span>
+		</>
 	);
 };
 
@@ -138,7 +143,7 @@ const App: React.FC = () => {
 						</select>
 					</div>
 
-					<div className="col-2">
+					<div className="col-1 flex-grow-1">
 						<button
 							type="button"
 							disabled={loading}
@@ -174,7 +179,11 @@ const App: React.FC = () => {
 				<div className="d-flex justify-content-center align-items-center">
 					<ResultDisplay amount={amount} curr={fromCurrency} />
 					{` = `}
-					<ResultDisplay amount={converted} curr={toCurrency} />
+					<ResultDisplay
+						amount={converted}
+						curr={toCurrency}
+						className="fw-bold mx-1"
+					/>
 				</div>
 			</div>
 		</div>
