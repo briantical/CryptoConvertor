@@ -54,7 +54,7 @@ const App: React.FC = () => {
 	const [converted, setConverted] = useState<number>(0);
 
 	const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAmount(parseInt(e.target.value, 10));
+		setAmount(parseFloat(e.target.value));
 	};
 
 	const handleToChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -85,7 +85,7 @@ const App: React.FC = () => {
 
 				setLoading(false);
 			} catch (error: any) {
-				window.alert(`${process.env.REACT_APP_SERVER_URL} ${error.message}`);
+				window.alert(error.message);
 				setLoading(false);
 			}
 		};
@@ -99,7 +99,7 @@ const App: React.FC = () => {
 				const conversion = await convertCurrency(from, to, amount);
 				setConverted(conversion || 0);
 			} catch (error: any) {
-				window.alert(`${process.env.REACT_APP_SERVER_URL} ${error.message}`);
+				window.alert(error.message);
 			}
 		};
 
@@ -166,7 +166,7 @@ const App: React.FC = () => {
 						</button>
 					</div>
 
-					<div className="col-5 my-3">
+					<div className="col-5 my-3 flex-grow-1">
 						<select
 							id="to"
 							name="to"
@@ -194,7 +194,7 @@ const App: React.FC = () => {
 						amount={isNaN(amount) ? 0 : amount}
 						curr={fromCurrency}
 					/>
-					{` = `}
+					<span className="px-2"> = </span>
 					<ResultDisplay
 						amount={converted}
 						curr={toCurrency}
